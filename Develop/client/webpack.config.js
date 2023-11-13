@@ -18,12 +18,76 @@ module.exports = () => {
       path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
-      
+      new HtmlWebpackPlugin({
+        template: './index.html',
+        title: 'Webpack Plugin'
+      }),
+
+      //Inject custome service worker
+      new InjectManifest({
+        swSrc: './src-sw.js',
+        swDest: 'src-sw.js'
+      }),
+
+      // Creates Manifest.json file
+      // new WebpackPwaManifest({
+      //   name: 'Webpack Plugin',
+      //   short_name: 'Webpack Plugin',
+      //   description: 'Webpack Plugin',
+      //   background_color: '#ffffff',
+      //   crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+      //   icons: [
+      //     {
+      //       src: path.resolve('src/assets/icons/icon-192x192.png'),
+      //       sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
+      //     },
+      //     {
+      //       src: path.resolve('src/assets/icons/icon-512x512.png'),
+      //       size: '1024x1024' // you can also use the specifications pattern
+      //     },
+      //     {
+      //       src: path.resolve('src/assets/icons/icon-512x512.png'),
+      //       size: '1024x1024',
+      //       purpose: 'maskable'
+      //     }
+      //   ]
+      // })
+      new WebpackPwaManifest({
+        fingerprints: false,
+        inject: true,
+        name: 'Webpack Plugin',
+        short_name: 'Webpack Plugin',
+        description: 'Text-editor built with Webpack',
+        background_color: '#225ca3',
+        theme_color: '#225ca3',
+        start_url: './',
+        publicPath: './',
+        icons: [
+          {
+            src: path.resolve('src/images/logo.png'),
+            sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join('assets', 'icons'),
+          }
+        ],
+      }),
     ],
 
     module: {
       rules: [
-        
+        {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },{
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-object-rest-spread', '@babel/transform-runtime']
+          },
+        },
+      },
       ],
     },
   };
