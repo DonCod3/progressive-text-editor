@@ -29,29 +29,7 @@ module.exports = () => {
         swDest: 'src-sw.js'
       }),
 
-      // Creates Manifest.json file
-      // new WebpackPwaManifest({
-      //   name: 'Webpack Plugin',
-      //   short_name: 'Webpack Plugin',
-      //   description: 'Webpack Plugin',
-      //   background_color: '#ffffff',
-      //   crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
-      //   icons: [
-      //     {
-      //       src: path.resolve('src/assets/icons/icon-192x192.png'),
-      //       sizes: [96, 128, 192, 256, 384, 512] // multiple sizes
-      //     },
-      //     {
-      //       src: path.resolve('src/assets/icons/icon-512x512.png'),
-      //       size: '1024x1024' // you can also use the specifications pattern
-      //     },
-      //     {
-      //       src: path.resolve('src/assets/icons/icon-512x512.png'),
-      //       size: '1024x1024',
-      //       purpose: 'maskable'
-      //     }
-      //   ]
-      // })
+
       new WebpackPwaManifest({
         fingerprints: false,
         inject: true,

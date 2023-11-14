@@ -46,7 +46,7 @@ registerRoute(
   }),
   
   ({ request }) => req.mode === 'navigate',
-  newOfflineFallback({
+  offlineFallback({
     pageFallback: '/index.html',
   }),
 );
